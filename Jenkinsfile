@@ -17,10 +17,16 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo 'Instalando herramientas de seguridad...'
-                sh 'pip install --user -r requirements.txt'
+                sh '''
+                    export HOME=/tmp
+                    pip install --no-cache-dir --user -r requirements.txt
+                '''
 
                 echo 'Ejecutando análisis estático con Bandit...'
-                sh 'bandit -r . || true'
+                sh '''
+                    export HOME=/tmp
+                    ~/.local/bin/bandit -r . || true
+                '''
             }
         }
     }
