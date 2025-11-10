@@ -1,5 +1,5 @@
 pipeline {
-    // Usamos un agente que tenga Python 3 y pip
+    // Usamos un agente con Python 3 y pip (Docker oficial)
     agent { docker { image 'python:3.9-slim' } }
 
     stages {
@@ -8,19 +8,19 @@ pipeline {
                 echo 'Construyendo el proyecto...'
             }
         }
+
         stage('Test') {
             steps {
-                echo 'Ejecutando pruebas...'
+                echo 'Ejecutando pruebas unitarias...'
             }
         }
+
         stage('Security Scan') {
             steps {
                 echo 'Instalando herramientas de seguridad...'
-                // Instala Flask y Bandit
                 sh 'pip install -r requirements.txt'
 
                 echo 'Ejecutando análisis estático con Bandit...'
-                // Analiza el código Python y genera reporte
                 sh 'bandit -r . || true'
             }
         }
