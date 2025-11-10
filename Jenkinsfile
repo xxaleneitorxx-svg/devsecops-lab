@@ -19,11 +19,11 @@ pipeline {
                 echo 'Instalando herramientas de seguridad...'
                 
                 sh '''
-                    echo "Ajustando permisos..."
-                    chmod -R 777 /
+                    echo "Ajustando permisos solo en el workspace..."
+                    chmod -R 777 /var/jenkins_home/workspace || true
                     mkdir -p /tmp/pip-cache
                     export PIP_CACHE_DIR=/tmp/pip-cache
-                    
+
                     echo "Instalando dependencias..."
                     pip install --no-cache-dir --break-system-packages -r requirements.txt || true
                 '''
