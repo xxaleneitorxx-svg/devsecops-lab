@@ -20,12 +20,13 @@ pipeline {
                 sh '''
                     export HOME=/tmp
                     pip install --no-cache-dir --user -r requirements.txt
+                    pip install --no-cache-dir --user pbr
                 '''
 
                 echo 'Ejecutando análisis estático con Bandit...'
                 sh '''
                     export HOME=/tmp
-                    ~/.local/bin/bandit -r . || true
+                    /tmp/.local/bin/bandit -r . || true
                 '''
             }
         }
